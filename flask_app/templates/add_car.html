@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Car</title>
+    <!-- load Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <!-- linking CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/style.css')}}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header alert-success">
+          <h1>Put Car Up for Sale ! !</h1>
+        </div>
+        <div class="card-body">
+          <div class="dash_log_btn">
+            <a href="/dashboard" class="btn btn-success back_dash">Dashboard</a>
+            <a href="/logout" class="btn btn-danger btn_logout logout_in_add"
+              >Logout</a
+            >
+          </div>
+          <!-- Flash Message -->
+          <div class="flash_message" role="alert">
+            {% with messages = get_flashed_messages()%} {% if messages %} {% for
+            message in messages: %}
+            <p>{{message}}</p>
+            {% endfor%} {% endif %} {% endwith %}
+          </div>
+          <!-- Form Add Car -->
+          <form actions="/new" method="post">
+            <label for="price" class="form-label">Price</label>
+            <input
+              type="number"
+              min="0"
+              class="form-control"
+              name="price"
+              value="0"
+            />
+
+            <label for="model" class="form-label">Model</label>
+            <input
+              type="text"
+              class="form-control"
+              name="model"
+              placeholder=""
+            />
+
+            <label for="make" class="form-label">Make</label>
+            <input
+              type="text"
+              class="form-control"
+              name="make"
+              placeholder=""
+            />
+
+            <label for="year" class="form-label">Year</label>
+            <input
+              type="number"
+              class="form-control"
+              name="year"
+              min="0"
+              value="0"
+            />
+
+            <label for="description">Description:</label>
+            <div class="form-floating">
+              <textarea
+                class="form-control"
+                placeholder="Leave a description here"
+                name="description"
+                style="height: 100px"
+              ></textarea>
+            </div>
+
+            <input type="hidden" name="user_id" value="{{active_user.id}}" />
+            <button type="submit" class="btn btn-success add_car_btn">
+              Add a Car
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
